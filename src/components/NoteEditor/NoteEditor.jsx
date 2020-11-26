@@ -18,10 +18,8 @@ class NoteEditor extends React.Component {
         this.setState({text: event.target.value})
     }
     hadleColorChange(e, color) {
-        //this.input = e.target;
         this.setState({
-            color: color,
-            checked: e.target.checked
+            color: color
         })
     }
     hadleTagsChange(e) {

@@ -1,13 +1,12 @@
 import React from "react";
-import './NotesGrid.css';
+import './ArchiveNotesGrid.css';
 import Note from "../Note/Note.jsx";
 import Masonry from "masonry-layout";
 
-class NotesGrid extends React.Component {
+class ArchiveNotesGrid extends React.Component {
 
     constructor(props) {
         super(props);
-        this.filter = this.filter.bind(this);
         this.state = {notes: this.props.notes};
         this.handleClickNote = this.handleClickNote.bind(this);
         
@@ -35,46 +34,16 @@ class NotesGrid extends React.Component {
         }
     }
 
-    filter(e){
-        if(e.target.value[0] === "#"){
-            let filteredList = this.props.notes.filter((note) => {
-                return note.tags.toLowerCase().search(e.target.value.toLowerCase()) !== -1});
-                this.setState({notes: filteredList});
-        }
-        else{
-            let filteredList = this.props.notes.filter((note) => {
-                return note.text.toLowerCase().search(e.target.value.toLowerCase()) !== -1});
-                this.setState({notes: filteredList});
-        }
-    }
-
     handleClickNote(){
         this.props.onClickNode();
     }
+
     render() {
-        return (<div>
-            
-                <div className="notes-grid" ref="grid">
-            {
-                this.state.notes.map((note) => {
-                    if((!note.delete || !note.archive) && note.pin)
-                    return <Note
-                        key={note.id}
-                        id={note.id}
-                        color={note.color}
-                        text={note.text}
-                        onClickNodeInfo={this.props.onClickNode.bind(null, note)}
-                    />
-                })
-            }
-            </div>
-            <input placeholder="search" className="noteSearch" onInput={this.filter}/>
-            
+        return (<div>            
             <div className="notes-grid" ref="grid">
                 {
                     this.state.notes.map((note) => {
-                        if(note.delete || note.archive || note.pin)
-                        return null;
+                        if(note.archive)
                         return <Note
                             key={note.id}
                             id={note.id}
@@ -89,4 +58,4 @@ class NotesGrid extends React.Component {
     }
 }
 
-export default NotesGrid;
+export default ArchiveNotesGrid;

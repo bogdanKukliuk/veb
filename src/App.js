@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import NotesPage from "./components/NotesPage/NotesPage.jsx";
 import DeletesPage from "./components/Delete/DeletesPage.jsx";
+import ArchivePage from './components/Archive/ArchivePage';
 import NotFoundPage from "./components/NotFoundPage/NotFoundPage.jsx";
 import Menu from "./components/Menu/Menu.jsx";
 
@@ -51,7 +52,7 @@ function App() {
         color: "violet",
         tags: "#lorem",
         delete: false,
-        pin: false,
+        pin: true,
         archive: false
     },
     {
@@ -61,14 +62,14 @@ function App() {
         tags: "#lorem",
         delete: false,
         pin: false,
-        archive: false
+        archive: true
     },
     {
         id: 7,
         text: "seven",
         color: "blue",
         tags: "#lorem",
-        delete: false,
+        delete: true,
         pin: false,
         archive: false
     },
@@ -84,6 +85,7 @@ function App() {
       <div className="appContainer">
         <Switch>
           <Route exact path="/" component={NotesPage} />
+          <Route exact path="/archive" component={ArchivePage} />
           <Route exact path="/deletes" component={DeletesPage} />
           <Route component={NotFoundPage} />
         </Switch>
