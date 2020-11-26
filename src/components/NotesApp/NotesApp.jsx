@@ -60,7 +60,8 @@ class NotesApp extends React.Component {
             if (item.id === noteId) {
               const updatedItem = {
                 ...item,
-                archive: !item.archive,
+                archive: true,
+                pin: false
               };
        
               return updatedItem;
@@ -79,8 +80,8 @@ class NotesApp extends React.Component {
             if (item.id === noteId) {
               const updatedItem = {
                 ...item,
-                delete: !item.delete,
-                pin: !item.pin
+                delete: true,
+                pin: false
               };
        
               return updatedItem;
