@@ -14,6 +14,9 @@ class Menu extends React.Component {
                         <NavLink className="menu-item-link" activeClassName="active"  to="/">Notes</NavLink>
                     </div>
                     <div className="menu-item">
+                        <NavLink className="menu-item-link" activeClassName="active"  to="/archive">Archive</NavLink>
+                    </div>
+                    <div className="menu-item">
                         <NavLink className="menu-item-link" activeClassName="active"  to="/deletes">Deletes</NavLink>
                     </div>
                 </div>

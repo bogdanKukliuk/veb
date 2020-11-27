@@ -1,23 +1,23 @@
 import React from "react";
-import DeleteNotesGrid from "../DeleteNotesGrid/DeleteNotesGrid.jsx";
+import ArchiveNotesGrid from "../ArchiveNotesGrid/ArchiveNotesGrid.jsx";
 
-class DeletesPage extends React.Component {
+class ArchivePage extends React.Component {
     constructor() {
         super();
         this.state = {  notes: JSON.parse(sessionStorage.getItem('mydata')), 
                         note: null,
                         text: null};
-        this.handleRestoreNote = this.handleRestoreNote.bind(this);
-        this.handleDeleteNote = this.handleDeleteNote.bind(this);
+        this.handleUnzipNote = this.handleUnzipNote.bind(this);
         this.handleClickNote = this.handleClickNote.bind(this);
+        this.handleDeleteNote = this.handleDeleteNote.bind(this);
     }
-    handleRestoreNote(){
+    handleUnzipNote(){
         let noteId = this.state.note.id;
         let newNotes = this.state.notes.map((item) => {
             if (item.id === noteId) {
               const updatedItem = {
                 ...item,
-                delete: !item.delete,
+                archive: !item.archive,
               };
        
               return updatedItem;
@@ -29,17 +29,27 @@ class DeletesPage extends React.Component {
         })
         sessionStorage.setItem('mydata', JSON.stringify(newNotes));
     }
+
     handleDeleteNote(){
-        let noteId = this.state.note.id;
-        let newNotes = this.state.notes.filter(function (note) {
-            return note.id !== noteId;
+      let noteId = this.state.note.id;
+      let newNotes = this.state.notes.map((item) => {
+          if (item.id === noteId) {
+            const updatedItem = {
+              ...item,
+              delete: !item.delete,
+              archive: !item.archive
+            };
+     
+            return updatedItem;
+          }
+          return item;
         });
-        this.setState({
-            notes: newNotes
-        })
-        sessionStorage.setItem('mydata', JSON.stringify(newNotes));
+      this.setState({
+          notes: newNotes
+      })
+      sessionStorage.setItem('mydata', JSON.stringify(newNotes));
     }
-    
+
     handleClickNote(newnote){
         this.setState({
             note: newnote,
@@ -50,8 +60,8 @@ class DeletesPage extends React.Component {
 
     render() {
         return (<div className="notes-page">
-            <h2 className="notes-header">Deletes</h2>
-            <DeleteNotesGrid notes={this.state.notes} onClickNode={this.handleClickNote}/>
+            <h2 className="notes-header">Archive</h2>
+            <ArchiveNotesGrid notes={this.state.notes} onClickNode={this.handleClickNote}/>
             
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog" role="document">
@@ -62,7 +72,7 @@ class DeletesPage extends React.Component {
                     </div>
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onClick={this.handleRestoreNote}>Restore</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onClick={this.handleUnzipNote}>UnZip</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" onClick={this.handleDeleteNote}>Delete</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                   </div>
@@ -73,4 +83,4 @@ class DeletesPage extends React.Component {
     }
 }
 
-export default DeletesPage;
+export default ArchivePage;
